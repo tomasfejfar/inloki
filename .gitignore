@@ -44,3 +44,6 @@
 /inloki.web/inloki.web/inloki.web.csproj.user
 /inloki.web/inloki.web/Properties/PublishProfiles/inlokiweb - Web Deploy.pubxml.user
 /inloki.web/.vs/config/applicationhost.config
+
+# OS X
+.DS_Store
