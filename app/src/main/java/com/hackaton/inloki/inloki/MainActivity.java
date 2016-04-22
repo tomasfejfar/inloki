@@ -2,6 +2,7 @@ package com.hackaton.inloki.inloki;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
     private long lastMessageTS;
     private int lastProximity = 100;
     private RelativeLayout contentLayout;
+    private Vibrator vibrator;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
         KontaktSDK.initialize("api-key");
         this.lastMessageTS = new Date().getTime();
         proximityManager = new KontaktProximityManager(this);
+        this.vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
     }
 
     protected void onStart() {
@@ -139,6 +142,8 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
         this.lastProximity = Math.min(proximity, this.lastProximity);
 //        if (shouldShowMessage && this.lastProximity != proximity) {
         if (deltaTime > 400) {
+            long[] vibrationRythm = {(2 - proximity) * 50, 50, (2 - proximity) * 50, 50};
+            this.vibrator.vibrate(vibrationRythm, -1);
             this.textView.setText(text);
             this.contentLayout.setBackgroundColor(this.getDistanceColor(proximity));
             this.lastMessageTS = now;
