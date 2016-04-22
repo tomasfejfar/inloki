@@ -19,6 +19,15 @@
             </intent-filter>
         </activity>
         <service android:name="com.kontakt.sdk.android.ble.service.ProximityService" android:exported="false"/>
+        <activity
+            android:name=".NavigationActivity"
+            android:label="@string/title_activity_navigation"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.hackaton.inloki.inloki.MainActivity" />
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.BLUETOOTH"/>
