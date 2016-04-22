@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
                             public boolean apply(IBeaconAdvertisingPacket iBeaconAdvertisingPacket) {
                                 final String uniqId = iBeaconAdvertisingPacket.getBeaconUniqueId();
 
-                                return uniqId != null && uniqId.equals("5wKj");
+                                return uniqId != null && uniqId.equals("5wKj"); // || uniqId != null && uniqId.equals("9aqg");
+
                             }
                         }))
                         .setDevicesUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(1))
@@ -98,10 +99,6 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
     public void onEvent(BluetoothDeviceEvent bluetoothDeviceEvent) {
         long now = new Date().getTime();
         long deltaTime = now - this.lastMessageTS;
-
-        if (deltaTime < 200) {
-            return;
-        }
 
         boolean shouldShowMessage = true;
         List<? extends RemoteBluetoothDevice> deviceList = bluetoothDeviceEvent.getDeviceList();
@@ -139,13 +136,13 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
             }
         }
         Log.d(TAG, text + " really?" + shouldShowMessage + " | " + proximity);
-
+        this.lastProximity = Math.min(proximity, this.lastProximity);
 //        if (shouldShowMessage && this.lastProximity != proximity) {
-        if (shouldShowMessage) {
+        if (deltaTime > 400) {
             this.textView.setText(text);
             this.contentLayout.setBackgroundColor(this.getDistanceColor(proximity));
             this.lastMessageTS = now;
-            this.lastProximity = proximity;
+            this.lastProximity = 100;
         }
     }
 
@@ -158,10 +155,10 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
     }
 
     private int getOwnProximity(double dist) {
-        if (dist < 0.6) {
+        if (dist < 1) {
             return 0;
-//        } else if (dist < 0.6) {
-//            return 1;
+        } else if (dist < 2) {
+            return 1;
 //        } else if (dist < 0.9) {
 //            return 2;
 //        } else if (dist < 1.5) {
@@ -178,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
         switch (proximity) {
             case 0:
                 color = Color.rgb(0, 255, 0);
+                break;
+            case 1:
+                color = Color.rgb(255, 255, 51);
                 break;
             default:
                 color = Color.rgb(255, 0, 0);
