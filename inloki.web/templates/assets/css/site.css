@@ -4,7 +4,7 @@
 }
 
 /* Set padding to keep content from hitting the edges */
-.body-content {
+.main-content {
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -14,4 +14,11 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* Footer */
+footer {
+  padding: 10px 50px;
+  border-top: 1px solid black;
+  background: #f7f7f7;
 }
