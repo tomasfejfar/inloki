@@ -38,3 +38,9 @@
 /inloki.web/packages/EntityFramework.6.1.3
 /inloki.web/packages/bootstrap.3.0.0
 /inloki.web/packages/Antlr.3.4.1.9004
+*.suo
+/inloki.web/inloki.web/bin
+/inloki.web/inloki.web/obj
+/inloki.web/inloki.web/inloki.web.csproj.user
+/inloki.web/inloki.web/Properties/PublishProfiles/inlokiweb - Web Deploy.pubxml.user
+/inloki.web/.vs/config/applicationhost.config
