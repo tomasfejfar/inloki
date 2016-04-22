@@ -1,4 +1,5 @@
-﻿using System;
+﻿using inloki.web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,6 +12,19 @@ namespace inloki.web.Controllers
 		public ActionResult Index()
 		{
 			ViewBag.Title = "Home Page";
+
+			Database.Modify(d =>
+			{
+				d.Beacons.Add(new Beacon { Key = DateTime.Now.ToString() });
+			});
+
+			Database.Query(d =>
+			{
+				var xxx = from b in d.Beacons
+						  select b.Key;
+
+				ViewBag.Xxx = string.Join(", ", xxx);
+			});
 
 			return View();
 		}

@@ -7,34 +7,37 @@ using System.Web.Http;
 
 namespace inloki.web.Controllers
 {
-    [Authorize]
-    public class ValuesController : ApiController
-    {
-        // GET api/values
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+	//[Authorize]
+	public class ValuesController : ApiController
+	{
+		// GET api/values
+		public IEnumerable<string> Get()
+		{
+			var d = Database.Load();
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+			return from b in d.Beacons
+				   select b.Key;
+		}
 
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
+		// GET api/values/5
+		public string Get(int id)
+		{
+			return "value";
+		}
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		// POST api/values
+		public void Post([FromBody]string value)
+		{
+		}
 
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
-    }
+		// PUT api/values/5
+		public void Put(int id, [FromBody]string value)
+		{
+		}
+
+		// DELETE api/values/5
+		public void Delete(int id)
+		{
+		}
+	}
 }
