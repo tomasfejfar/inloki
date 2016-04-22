@@ -7,13 +7,14 @@ import java.util.List;
  */
 public class PathsResponse {
 
-    List<String> paths;
+    private final String[] paths;
 
-    public List<String> getPaths() {
+    public PathsResponse(String[] paths) {
+        this.paths = paths;
+    }
+
+    public String[] getPaths() {
         return paths;
     }
 
-    public void setPaths(List<String> paths) {
-        this.paths = paths;
-    }
 }
