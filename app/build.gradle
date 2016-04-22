@@ -20,6 +20,7 @@ android {
 
     packagingOptions {
         exclude 'main/AndroidManifest.xml'
+        exclude 'META-INF/ASL2.0'
     }
 }
 
