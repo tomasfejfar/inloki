@@ -8,8 +8,8 @@ import com.hackaton.inloki.ws.request.ParametrizedRequest;
  */
 public interface ServerDataProvider {
 
-    public void sendRequest(BeaconRequest request);
+    public String sendRequest(BeaconRequest request);
 
-    public void sendParametrizedRequest(ParametrizedRequest request);
+    public String sendParametrizedRequest(ParametrizedRequest request);
 
 }

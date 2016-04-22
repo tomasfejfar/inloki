@@ -14,16 +14,16 @@ public class SimpleServerDataProvider implements ServerDataProvider {
     private final String serverURL = "http://inlokiweb.azurewebsites.net/api/";
 
     @Override
-    public void sendRequest(BeaconRequest request) {
-        sendRestRequest(request.getRequestPart());
+    public String sendRequest(BeaconRequest request) {
+        return sendRestRequest(request.getRequestPart());
     }
 
     @Override
-    public void sendParametrizedRequest(ParametrizedRequest request) {
-        sendRestRequest(request.getRequestPart() + "/" + request.getParameter());
+    public String sendParametrizedRequest(ParametrizedRequest request) {
+        return sendRestRequest(request.getRequestPart() + "/" + request.getParameter());
     }
 
-    private void sendRestRequest(String requestPath) {
+    private String sendRestRequest(String requestPath) {
         String requestURL = serverURL + requestPath;
         System.out.println("Request to server: " + requestURL);
         Client client = Client.create();
@@ -38,5 +38,6 @@ public class SimpleServerDataProvider implements ServerDataProvider {
         String output = response.getEntity(String.class);
 
         System.out.println("Entity response from Server: " + output);
+        return output;
     }
 }
