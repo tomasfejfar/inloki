@@ -6,7 +6,7 @@ package com.hackaton.inloki.ws.request;
 public class ApiTestBeaconRequest extends AbstractBeaconRequest {
 
     public ApiTestBeaconRequest() {
-        super("values");
+        super("ping");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.hackaton.inloki.ws;
 
 import com.hackaton.inloki.ws.request.BeaconRequest;
+import com.hackaton.inloki.ws.request.ParametrizedRequest;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -13,16 +14,20 @@ public class SimpleServerDataProvider implements ServerDataProvider {
     private final String serverURL = "http://inlokiweb.azurewebsites.net/api/";
 
     @Override
-    public void sendBeaconRequest(BeaconRequest request) {
-        sendRequest(request);
+    public void sendRequest(BeaconRequest request) {
+        sendRestRequest(request.getRequestPart());
     }
 
-    protected void sendRequest(BeaconRequest request)  {
-        Client client = Client.create();
+    @Override
+    public void sendParametrizedRequest(ParametrizedRequest request) {
+        sendRestRequest(request.getRequestPart() + "/" + request.getParameter());
+    }
 
-        String requestUrl = serverURL + request.getRequestPart();
-        System.out.println("Request to server: " + requestUrl);
-        WebResource webResource = client.resource(requestUrl);
+    private void sendRestRequest(String requestPath) {
+        String requestURL = serverURL + requestPath;
+        System.out.println("Request to server: " + requestURL);
+        Client client = Client.create();
+        WebResource webResource = client.resource(requestURL);
 
         ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
         if (response.getStatus() != 200) {
