@@ -1,0 +1,40 @@
+﻿@model IEnumerable<inloki.web.Models.Path>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.name)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.description)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.name)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.description)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { name = item.name }) |
+				@Html.ActionLink("Details", "Details", new { name = item.name }) |
+				@Html.ActionLink("Delete", "Delete", new { name = item.name }) |
+			</td>
+		</tr>
+	}
+
+</table>

@@ -15,8 +15,10 @@ namespace inloki.web.Controllers
 		public Database()
 		{
 			Beacons = new List<Beacon>();
+			Paths = new List<Path>();
 		}
 
 		public List<Beacon> Beacons { get; set; }
+		public List<Path> Paths { get; private set; }
 	}
 }

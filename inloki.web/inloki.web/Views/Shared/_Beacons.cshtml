@@ -1,0 +1,24 @@
+﻿@model IEnumerable<inloki.web.ViewModels.BeaconViewModel>
+
+<table class="table">
+	<tr>
+		<th>
+			@*            @Html.DisplayNameFor(model => model.description)*@
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.Description)
+			</td>
+			<td>
+				@Html.HiddenFor(modelItem => item.Id)
+				@Html.CheckBox("beacon", item.Selected, new { id = item.Id})
+			</td>
+		</tr>
+	}
+
+</table>

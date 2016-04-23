@@ -5,9 +5,11 @@ using System.Web;
 
 namespace inloki.web.Models
 {
-	public class Beacon
+	public class Path
 	{
-		public string id { get; set; }
+		public string name { get; set; }
 		public string description { get; set; }
+
+		public IEnumerable<string> waypoints { get; set; }
 	}
 }

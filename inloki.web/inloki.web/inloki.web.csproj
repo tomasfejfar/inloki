@@ -235,9 +235,16 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminBeaconController.cs" />
+    <Compile Include="Controllers\AdminPathController.cs" />
+    <Compile Include="Controllers\BeaconsController.cs" />
     <Compile Include="Controllers\DatabaseLoader.cs" />
     <Compile Include="Controllers\Database.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Controllers\PathsByBeaconController.cs" />
+    <Compile Include="Controllers\PathsController.cs" />
+    <Compile Include="Controllers\PingController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -246,10 +253,15 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Beacon.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Location.cs" />
+    <Compile Include="Models\Path.cs" />
+    <Compile Include="Models\Step.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\BeaconViewModel.cs" />
+    <Compile Include="ViewModels\PathViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -306,9 +318,21 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AdminBeacon\Index.cshtml" />
+    <Content Include="Views\AdminBeacon\Details.cshtml" />
+    <Content Include="Views\AdminBeacon\Create.cshtml" />
+    <Content Include="Views\AdminBeacon\Edit.cshtml" />
+    <Content Include="Views\AdminBeacon\Delete.cshtml" />
+    <Content Include="Views\AdminPath\Index.cshtml" />
+    <Content Include="Views\AdminPath\Create.cshtml" />
+    <Content Include="Views\Shared\_Beacons.cshtml" />
+    <Content Include="Views\AdminPath\Edit.cshtml" />
+    <Content Include="Views\AdminPath\Delete.cshtml" />
+    <Content Include="Views\AdminPath\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

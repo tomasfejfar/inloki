@@ -8,36 +8,38 @@ using System.Web.Http;
 namespace inloki.web.Controllers
 {
 	//[Authorize]
-	public class ValuesController : ApiController
-	{
-		// GET api/values
-		public IEnumerable<string> Get()
-		{
-			var d = Database.Load();
+	//public class ValuesController : ApiController
+	//{
+	//	// GET api/values
+	//	public IEnumerable<string> Get()
+	//	{
+	//		var d = Database.Load();
 
-			return from b in d.Beacons
-				   select b.Key;
-		}
+	//		return from b in d.Beacons
+	//			   where b.Id == "sdfsf"
+				   
+	//			   select b.Id;
+	//	}
 
-		// GET api/values/5
-		public string Get(int id)
-		{
-			return "value";
-		}
+	//	// GET api/values/5
+	//	public string Get(int id)
+	//	{
+	//		return "value";
+	//	}
 
-		// POST api/values
-		public void Post([FromBody]string value)
-		{
-		}
+	//	// POST api/values
+	//	public void Post([FromBody]string value)
+	//	{
+	//	}
 
-		// PUT api/values/5
-		public void Put(int id, [FromBody]string value)
-		{
-		}
+	//	// PUT api/values/5
+	//	public void Put(int id, [FromBody]string value)
+	//	{
+	//	}
 
-		// DELETE api/values/5
-		public void Delete(int id)
-		{
-		}
-	}
+	//	// DELETE api/values/5
+	//	public void Delete(int id)
+	//	{
+	//	}
+	//}
 }

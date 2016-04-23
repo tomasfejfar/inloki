@@ -5,9 +5,9 @@ using System.Web;
 
 namespace inloki.web.Models
 {
-	public class Beacon
+	public class Location
 	{
-		public string id { get; set; }
-		public string description { get; set; }
+		public int id { get; set; }
+		public string name { get; set; }
 	}
 }
