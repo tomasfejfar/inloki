@@ -1,6 +1,9 @@
 package com.hackaton.inloki.inloki;
 
 import android.graphics.Color;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +41,10 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
     private TextView textView;
     private long lastMessageTS;
     private int lastProximity = 100;
+    private int closestProximity = 100;
     private RelativeLayout contentLayout;
     private Vibrator vibrator;
+    private Ringtone thereTone;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
         KontaktSDK.initialize("api-key");
         this.lastMessageTS = new Date().getTime();
         proximityManager = new KontaktProximityManager(this);
+
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        this.thereTone = RingtoneManager.getRingtone(getApplicationContext(), notification);
+
         this.vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
     }
 
@@ -91,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
 
                             }
                         }))
-                        .setDevicesUpdateCallbackInterval(TimeUnit.SECONDS.toMillis(1))
                         .build()
                     )
                     .build();
@@ -108,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
         long timestamp = bluetoothDeviceEvent.getTimestamp();
         DeviceProfile deviceProfile = bluetoothDeviceEvent.getDeviceProfile();
         String text = "Unknown event!";
-        int proximity = this.lastProximity;
+        int proximity = this.closestProximity;
 
         switch (bluetoothDeviceEvent.getEventType()) {
             case SPACE_ENTERED:
@@ -138,16 +146,22 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
                 break;
             }
         }
-        Log.d(TAG, text + " really?" + shouldShowMessage + " | " + proximity);
-        this.lastProximity = Math.min(proximity, this.lastProximity);
+        Log.d(TAG, text + " really?" + shouldShowMessage + " | " + proximity + " | " + this.closestProximity);
+        this.closestProximity = Math.min(proximity, this.closestProximity);
 //        if (shouldShowMessage && this.lastProximity != proximity) {
         if (deltaTime > 400) {
-            long[] vibrationRythm = {(2 - proximity) * 50, 50, (2 - proximity) * 50, 50};
+            long[] vibrationRythm = {(2 - this.closestProximity) * 50, 50, (2 - this.closestProximity) * 50, 50};
             this.vibrator.vibrate(vibrationRythm, -1);
+
+            if (this.closestProximity == 0 && !this.thereTone.isPlaying()) {
+                this.thereTone.play();
+            }
+
             this.textView.setText(text);
-            this.contentLayout.setBackgroundColor(this.getDistanceColor(proximity));
+            this.contentLayout.setBackgroundColor(this.getDistanceColor(this.closestProximity));
             this.lastMessageTS = now;
-            this.lastProximity = 100;
+            this.lastProximity = this.closestProximity;
+            this.closestProximity = 100;
         }
     }
 
@@ -160,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements ProximityManager.
     }
 
     private int getOwnProximity(double dist) {
-        if (dist < 1) {
+        if (dist < 0.8) {
             return 0;
         } else if (dist < 2) {
             return 1;
